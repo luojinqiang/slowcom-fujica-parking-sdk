@@ -1,51 +1,31 @@
 package request
 
 import (
-	"encoding/json"
 	"fmt"
-	"github.com/ddliu/go-httpclient"
-	"slowcom-fujica-parking-sdk/app/parking/entity"
-	"slowcom-fujica-parking-sdk/basic"
+	"slowcom-fujica-parking-sdk/app/common"
+	"slowcom-fujica-parking-sdk/config"
 )
 
-type parkingRequest struct {
-	basic.BaseRequest
+type ParkingRequest struct {
+	FsClient *config.FsHttpClient
 }
 
-var ParkingRequest = new(parkingRequest)
+// GetParkingById 根据id获取车场信息
+func (s *ParkingRequest) GetParkingById(parkingId string) (response *config.FsResponse, err error) {
+	sign := common.GetSign()
 
-func (s *parkingRequest) Get(Id int) (entity *entity.ParkingEntity, err error) {
-	res, err := httpclient.Get(s.BuildUrl(fmt.Sprintf("Park/Get/%d", Id)))
-	if err != nil {
-		return
-	}
-	fjcResponse, err := s.CheckFjcResponse(res)
-	if err != nil {
-		return
-	}
-	bytes, _ := json.Marshal(fjcResponse.Model)
-	err = json.Unmarshal(bytes, &entity)
-	return
-}
+	//param := map[string]string{"appId": common.AppId, "appSecret": common.AppSecret, "mchId": common.MchId, "sign": sign}
+	//response, err = s.FsClient.TokenPost("/fujica/api/v1/public/token", param)
+	//if err != nil {
+	//	return
+	//}
 
-// List 查询列表
-func (s *parkingRequest) List(PageSize int, CurrentPage int) (page *entity.ParkingPageEntity, err error) {
-	res, err := httpclient.PostJson(s.BuildUrl(`Park/GetByCustom`), &basic.PageData{
-		PageSize:    PageSize,
-		CurrentPage: CurrentPage,
-	})
+	mp := make(map[string]string)
+	mp["sign"] = sign
+	mp["parkId"] = parkingId
+	response, err = s.FsClient.PostJson("/fujica/api/v1/park/queryParkInfo", mp)
 	if err != nil {
-		return
+		fmt.Println(err)
 	}
-	fjcPageResponse, err := s.CheckFjcPageResponse(res)
-	if err != nil {
-		return
-	}
-	page = &entity.ParkingPageEntity{
-		TotalCount: fjcPageResponse.PageAttri.TotalCount,
-		List:       nil,
-	}
-	bytes, _ := json.Marshal(fjcPageResponse.Records)
-	err = json.Unmarshal(bytes, &page.List)
 	return
 }

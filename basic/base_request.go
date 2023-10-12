@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/ddliu/go-httpclient"
-	"slowcom-fujica-parking-sdk/config"
-	gloabal "slowcom-fujica-parking-sdk/gloabal"
+	"slowcom-fujica-parking-sdk/app/common"
+	"slowcom-fujica-parking-sdk/gloabal"
 )
 
 type PageData struct {
@@ -23,7 +23,7 @@ type BaseRequest struct {
 
 // BuildUrl 构建URL
 func (s *BaseRequest) BuildUrl(url string) string {
-	return fmt.Sprintf("%s%s", config.BaseUrl, url)
+	return fmt.Sprintf("%s%s", common.BaseUrl, url)
 }
 
 // CheckFjcResState 请求是否异常
