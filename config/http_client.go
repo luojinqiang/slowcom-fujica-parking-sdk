@@ -1,9 +1,9 @@
 package config
 
 import (
-	"fmt"
 	"github.com/ddliu/go-httpclient"
 	url2 "net/url"
+	"slowcom-fujica-parking-sdk/app/common"
 	"sync"
 )
 
@@ -15,18 +15,9 @@ const (
 
 // FsHttpClient 富士httpClient
 type FsHttpClient struct {
-	BaseUrl string
-	rwLock  sync.RWMutex
-	Token   string
+	rwLock sync.RWMutex
+	Token  string
 }
-
-//func init() {
-//	httpclient.Defaults(httpclient.Map{
-//		"opt_useragent":   USERAGENT,
-//		"opt_timeout":     TIMEOUT,
-//		"Accept-Encoding": "gzip,deflate,sdch",
-//	})
-//}
 
 // 生成一个http请求客户端
 func buildHttpClient() *httpclient.HttpClient {
@@ -41,7 +32,7 @@ func buildHttpClient() *httpclient.HttpClient {
 
 // Get get请求
 func (s *FsHttpClient) Get(url string) (response *FsResponse, err error) {
-	res, err := buildHttpClient().WithHeader("Authorization", "Bearer "+s.Token).Get(fmt.Sprintf("%s%s", s.BaseUrl, url), url2.Values{})
+	res, err := buildHttpClient().WithHeader("Authorization", "Bearer "+s.Token).Get(common.BuildUrl(url), url2.Values{})
 	if err != nil {
 		return
 	}
@@ -50,9 +41,8 @@ func (s *FsHttpClient) Get(url string) (response *FsResponse, err error) {
 }
 
 // PostJson postJson请求
-func (s *FsHttpClient) PostJson(url, data interface{}) (response *FsResponse, err error) {
-	//res, err := buildHttpClient().WithHeader("Authorization", "Bearer "+s.Token).PostJson(fmt.Sprintf("%s%s", s.BaseUrl, url), data)
-	res, err := buildHttpClient().WithHeader("Token", s.Token).PostJson(fmt.Sprintf("%s%s", s.BaseUrl, url), data)
+func (s *FsHttpClient) PostJson(url string, data interface{}) (response *FsResponse, err error) {
+	res, err := buildHttpClient().WithHeader("Token", s.Token).PostJson(common.BuildUrl(url), data)
 	if err != nil {
 		return
 	}
@@ -61,8 +51,8 @@ func (s *FsHttpClient) PostJson(url, data interface{}) (response *FsResponse, er
 }
 
 // TokenPost 获取token请求
-func (s *FsHttpClient) TokenPost(url, data interface{}) (response *FsResponse, err error) {
-	res, err := buildHttpClient().PostJson(fmt.Sprintf("%s%s", s.BaseUrl, url), data)
+func (s *FsHttpClient) TokenPost(url string, data interface{}) (response *FsResponse, err error) {
+	res, err := buildHttpClient().PostJson(common.BuildUrl(url), data)
 	if err != nil {
 		return
 	}

@@ -10,8 +10,7 @@ import (
 func main() {
 	fmt.Println("停车sdk启动")
 	fsClient := &config.FsHttpClient{
-		BaseUrl: common.BaseUrl,
-		Token:   common.Token,
+		Token: common.Token,
 	}
 	req := request.ParkingRequest{FsClient: fsClient}
 	req.GetParkingById(common.ParkingId)

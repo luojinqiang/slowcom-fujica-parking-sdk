@@ -11,15 +11,15 @@ import (
 	"time"
 )
 
-func GetSign() string {
-	timestamp := strconv.FormatInt(time.Now().UnixNano()/1e6, 10)
+func GetSign() (encryptSign string, timestamp string) {
+	timestamp = strconv.FormatInt(time.Now().UnixNano()/1e6, 10)
 	fmt.Println("timestamp=", timestamp)
 	paramStr := "appId=" + AppId + "appSecret=" + AppSecret + "mchId=" + MchId + "timestamp=" + timestamp
 	fmt.Println("排序后参数=", paramStr)
 	sign := CreateSign(PartnerKey, paramStr)
-	encryptSign := Encrypt(PartnerKey, sign)
+	encryptSign = Encrypt(PartnerKey, sign)
 	fmt.Println("签名sign=", encryptSign)
-	return encryptSign
+	return
 }
 func CreateSign(partnerKey string, paramStr string) string {
 	hash := hmac.New(sha256.New, []byte(partnerKey))
@@ -32,4 +32,8 @@ func Encrypt(partnerKey string, sign string) string {
 	bytes, err := gdes.EncryptCBC([]byte(sign), []byte(partnerKey), []byte("12345678"), 1)
 	fmt.Println("err", err)
 	return string(gbase64.Encode(bytes))
+}
+
+func BuildUrl(url string) string {
+	return fmt.Sprintf("%s%s", BaseUrl, url)
 }
