@@ -50,9 +50,11 @@ func (s *FsHttpClient) PostJson(url string, data interface{}) (response *FsRespo
 	return
 }
 
-// TokenPost 获取token请求
-func (s *FsHttpClient) TokenPost(url string, data interface{}) (response *FsResponse, err error) {
-	res, err := buildHttpClient().PostJson(common.BuildUrl(url), data)
+// GetToken 获取token请求
+func (s *FsHttpClient) GetToken() (response *FsResponse, err error) {
+	sign, timestamp := common.GetSign()
+	param := map[string]string{"appId": common.AppId, "appSecret": common.AppSecret, "mchId": common.MchId, "sign": sign, "timestamp": timestamp}
+	res, err := buildHttpClient().PostJson(common.BuildUrl("fujica/api/v1/public/token"), param)
 	if err != nil {
 		return
 	}

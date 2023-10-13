@@ -12,6 +12,8 @@ func main() {
 	fsClient := &config.FsHttpClient{
 		Token: common.Token,
 	}
+	//response, _ := fsClient.GetToken()
+	//fmt.Printf("%+v", response)
 	req := request.ParkingRequest{FsClient: fsClient}
 	req.GetParkingById(common.ParkingId)
 }
