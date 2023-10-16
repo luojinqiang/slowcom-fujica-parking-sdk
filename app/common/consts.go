@@ -1,7 +1,7 @@
 package common
 
 // Token 永久token
-const Token = "20230919135326803687584341FD71439436D139E89F8DBAE838061A"
+const Token = "202309191353268036875843BB2C21EB721BE5CDDBD5A5F8D749B5C2"
 
 // InterfaceSign 接口方式获得的sign
 const InterfaceSign = "J+KfVVHJZCtvWhxKswvpeuHk2YHS27Z7DiTLRGL4qf2MzWpZ2GoPv4I7D2CsKji8WvxTZxk0+8dfD4oE23YeRPxHnfce/I9D"
@@ -11,5 +11,5 @@ const AppId = "202309191353268036875843"
 const AppSecret = "9F8AFC84F8BC616173F637E8D4BAE4F2"
 const MchId = "KF00000029"
 
-const ParkingId = "202306081024162210"
+const ParkId = "202306081024162210"
 const BaseUrl = "https://fsopenapi.fujica.com.cn/"

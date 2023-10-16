@@ -7,20 +7,18 @@ import (
 	"fmt"
 	"github.com/gogf/gf/v2/crypto/gdes"
 	"github.com/gogf/gf/v2/encoding/gbase64"
-	"strconv"
-	"time"
+	"sort"
+	"strings"
 )
 
-func GetSign() (encryptSign string, timestamp string) {
-	timestamp = strconv.FormatInt(time.Now().UnixNano()/1e6, 10)
-	fmt.Println("timestamp=", timestamp)
-	paramStr := "appId=" + AppId + "appSecret=" + AppSecret + "mchId=" + MchId + "timestamp=" + timestamp
-	fmt.Println("排序后参数=", paramStr)
-	sign := CreateSign(PartnerKey, paramStr)
+func GetSign(data map[string]interface{}) (encryptSign string) {
+	param := JoinStringsInASCII(data)
+	fmt.Println("排序后参数：", param)
+	sign := CreateSign(PartnerKey, param)
 	encryptSign = Encrypt(PartnerKey, sign)
-	fmt.Println("签名sign=", encryptSign)
 	return
 }
+
 func CreateSign(partnerKey string, paramStr string) string {
 	hash := hmac.New(sha256.New, []byte(partnerKey))
 	hash.Write([]byte(paramStr))
@@ -36,4 +34,18 @@ func Encrypt(partnerKey string, sign string) string {
 
 func BuildUrl(url string) string {
 	return fmt.Sprintf("%s%s", BaseUrl, url)
+}
+
+// JoinStringsInASCII 按照规则，参数名ASCII码从小到大排序后拼接
+func JoinStringsInASCII(data map[string]interface{}) string {
+	var keyValList []string
+	var keyList []string
+	for k := range data {
+		keyList = append(keyList, k)
+	}
+	sort.Strings(keyList)
+	for _, k := range keyList {
+		keyValList = append(keyValList, fmt.Sprintf("%s=%v", k, data[k]))
+	}
+	return strings.Join(keyValList, "")
 }
