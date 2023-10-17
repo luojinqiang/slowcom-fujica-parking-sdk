@@ -12,4 +12,4 @@ const AppSecret = "9F8AFC84F8BC616173F637E8D4BAE4F2"
 const MchId = "KF00000029"
 
 const ParkId = "202306081024162210"
-const BaseUrl = "https://fsopenapi.fujica.com.cn/"
+const BaseUrl = "https://fsopenapi.fujica.com.cn/fujica/api/v1/"

@@ -1,0 +1,59 @@
+车位预约接口返回结果：
+    breakNum:<nil>
+    cancelTime:<nil>
+    createtime:2023-10-17 16:15:11
+    earliestInTime:2023-10-17 08:15:12
+    extendflag:<nil>
+    id:208
+    isClean:<nil>
+    latestInTime:2023-10-17 08:15:12
+    licensenumber:粤B12323
+    licensetype:0 l
+    icensetypeExport:0
+    operateType:<nil>
+    orderPrice:<nil>
+    orderPriceExport:<nil>
+    orderSource:<nil>
+    parkid:202306081024162210
+    parkname:升级测试车场6
+    paytype:<nil>
+    phone:
+    placearea:<nil>
+    placecode:<nil>
+    placefloor:<nil>
+    placeid:<nil>
+    placetype:<nil>
+    realInTime:<nil>
+    realOutTime:<nil>
+    realinplacetime:<nil>
+    realoutplacetime:<nil>
+    reserverInTime:2023-10-17 16:15
+    reserverOutTime:2023-10-17 21:15
+    reserverTime:0 reserverTimeExport:0分钟
+    reservetype:<nil>
+    state:1
+    stateExport:未入场
+    userid:
+    username:
+
+获取车道接口返回结果：
+    boxid:275709379452997
+    commonname:
+    createtime:2023-06-08 12:10:24
+    deviceserial:
+    hangup:1
+    id:825
+    iscommon:0
+    lanecode:
+    lanecodeid:
+    laneid:275709504053317
+    lanename:北门入口
+    laneno:2.75709504053317e+14
+    lanerelation:
+    lanetype:1
+    opType:<nil>
+    parkid:202306081024162210
+    remark:
+    status:
+    updatetime:2023-06-08 12:10:24
+    validatecode:
