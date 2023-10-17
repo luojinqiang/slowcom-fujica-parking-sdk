@@ -3,20 +3,22 @@ package main
 import (
 	"fmt"
 	"slowcom-fujica-parking-sdk/app/common"
-	"slowcom-fujica-parking-sdk/app/parking/entity"
 	"slowcom-fujica-parking-sdk/app/parking/request"
+	cardEntity "slowcom-fujica-parking-sdk/app/parking_card/entity"
+	cardRequest "slowcom-fujica-parking-sdk/app/parking_card/request"
 	"slowcom-fujica-parking-sdk/config"
 )
 
 func main() {
 	fmt.Println("停车sdk启动")
 	fsClient := &config.FsHttpClient{}
+	cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
 	req := request.ParkingRequest{FsClient: fsClient}
 	req.GetParkingById(common.ParkId)
 	// 1、获取月卡套餐
-	//req.GetParkingCardRules(common.ParkId)
+	cardReq.GetParkingCardRules(common.ParkId)
 	// 2、办卡
-	//cardApplyTest(req)
+	//cardApplyTest(cardReq)
 	// 3、续费
 	//cardRenewTest(req)
 	// 4、获取月卡列表
@@ -96,8 +98,8 @@ func main() {
 	//req.GetMerchantCoupons(common.ParkId, 1)
 }
 
-func cardRenewTest(req request.ParkingRequest) {
-	req.ParkingCardRenew(&entity.ParkingCardRenewParam{
+func cardRenewTest(req cardRequest.ParkingCardRequest) {
+	req.ParkingCardRenew(&cardEntity.ParkingCardRenewParam{
 		ParkId:           common.ParkId,
 		CardId:           212537,
 		AmountReceivable: 10000,
@@ -108,8 +110,8 @@ func cardRenewTest(req request.ParkingRequest) {
 	})
 }
 
-func cardApplyTest(req request.ParkingRequest) {
-	req.ParkingCardApply(&entity.ParkingCardApplyParam{
+func cardApplyTest(req cardRequest.ParkingCardRequest) {
+	req.ParkingCardApply(&cardEntity.ParkingCardApplyParam{
 		ParkId:           common.ParkId,
 		UserName:         "王凯新",
 		CardTypeId:       1101,
@@ -119,7 +121,7 @@ func cardApplyTest(req request.ParkingRequest) {
 		EndTime:          "2023-11-18",
 		NewEndTime:       "2023-11-18",
 		PhoneNumber:      "15076453821",
-		CardPlateRels: []*entity.CardPlateRelsModel{
+		CardPlateRels: []*cardEntity.CardPlateRelsModel{
 			{
 				Brand:         "宝马",
 				LicenseNumber: "粤B98212",

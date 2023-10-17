@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"github.com/ddliu/go-httpclient"
 	url2 "net/url"
 	"slowcom-fujica-parking-sdk/app/common"
@@ -46,6 +47,7 @@ func (s *FsHttpClient) PostJson(url string, data interface{}) (response *FsRespo
 		return
 	}
 	response, err = checkResponse(res)
+	fmt.Printf("%+v", response)
 	return
 }
 
