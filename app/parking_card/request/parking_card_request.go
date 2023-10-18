@@ -2,9 +2,9 @@ package request
 
 import (
 	"encoding/json"
-	"slowcom-fujica-parking-sdk/app/common"
-	"slowcom-fujica-parking-sdk/app/parking_card/entity"
-	"slowcom-fujica-parking-sdk/config"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/common"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking_card/entity"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/config"
 )
 
 type ParkingCardRequest struct {

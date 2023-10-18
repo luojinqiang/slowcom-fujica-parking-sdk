@@ -1,6 +1,6 @@
 package entity
 
-import "slowcom-fujica-parking-sdk/app/common"
+import "github.com/luojinqiang/slowcom-fujica-parking-sdk/app/common"
 
 // ParkingCardRuleModel 月卡套餐model
 type ParkingCardRuleModel struct {

@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/ddliu/go-httpclient"
-	"slowcom-fujica-parking-sdk/app/plate_device/entity"
-	"slowcom-fujica-parking-sdk/basic"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/plate_device/entity"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/basic"
 )
 
 type plateDeviceRequest struct {

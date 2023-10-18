@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/ddliu/go-httpclient"
-	"slowcom-fujica-parking-sdk/app/organization/entity"
-	"slowcom-fujica-parking-sdk/basic"
-	"slowcom-fujica-parking-sdk/gloabal"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/organization/entity"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/basic"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/gloabal"
 )
 
 type organizationRequest struct {

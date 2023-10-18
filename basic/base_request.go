@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/ddliu/go-httpclient"
-	"slowcom-fujica-parking-sdk/app/common"
-	"slowcom-fujica-parking-sdk/gloabal"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/common"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/gloabal"
 )
 
 type PageData struct {

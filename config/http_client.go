@@ -3,8 +3,8 @@ package config
 import (
 	"fmt"
 	"github.com/ddliu/go-httpclient"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/common"
 	url2 "net/url"
-	"slowcom-fujica-parking-sdk/app/common"
 	"sync"
 )
 

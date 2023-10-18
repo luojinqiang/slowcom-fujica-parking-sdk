@@ -2,7 +2,7 @@ package entity
 
 import (
 	"github.com/gogf/gf/v2/os/gtime"
-	"slowcom-fujica-parking-sdk/app/common"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/common"
 )
 
 // CarBillRecordsParam 车辆计费查询参数

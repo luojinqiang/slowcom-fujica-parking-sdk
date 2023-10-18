@@ -1,4 +1,4 @@
-module slowcom-fujica-parking-sdk
+module github.com/luojinqiang/slowcom-fujica-parking-sdk
 
 go 1.18
 

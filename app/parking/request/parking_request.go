@@ -1,9 +1,9 @@
 package request
 
 import (
-	"slowcom-fujica-parking-sdk/app/common"
-	"slowcom-fujica-parking-sdk/app/parking/entity"
-	"slowcom-fujica-parking-sdk/config"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/common"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking/entity"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/config"
 )
 
 type ParkingRequest struct {

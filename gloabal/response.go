@@ -1,6 +1,6 @@
 package gloabal
 
-import "slowcom-fujica-parking-sdk/basic"
+import "github.com/luojinqiang/slowcom-fujica-parking-sdk/basic"
 
 // FjcResState 返回结果状态
 type FjcResState struct {

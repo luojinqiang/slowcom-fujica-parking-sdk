@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"slowcom-fujica-parking-sdk/app/common"
-	"slowcom-fujica-parking-sdk/app/parking/request"
-	cardEntity "slowcom-fujica-parking-sdk/app/parking_card/entity"
-	cardRequest "slowcom-fujica-parking-sdk/app/parking_card/request"
-	"slowcom-fujica-parking-sdk/config"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/common"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking/request"
+	cardEntity "github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking_card/entity"
+	cardRequest "github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking_card/request"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/config"
 )
 
 func main() {
