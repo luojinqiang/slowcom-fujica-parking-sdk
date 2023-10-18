@@ -12,11 +12,11 @@ import (
 func main() {
 	fmt.Println("停车sdk启动")
 	fsClient := &config.FsHttpClient{}
-	//cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
+	cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
 	req := request.ParkingRequest{FsClient: fsClient}
 	req.GetParkingById(common.ParkId)
 	// 1、获取月卡套餐
-	//cardReq.GetParkingCardRules(common.ParkId)
+	cardReq.GetParkingCardRules(common.ParkId)
 	// 2、办卡
 	//cardApplyTest(cardReq)
 	// 3、续费
