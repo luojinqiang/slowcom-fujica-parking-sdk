@@ -73,7 +73,7 @@ type ParkingInoutParam struct {
 
 // GrantCouponParam 发放优惠券参数
 type GrantCouponParam struct {
-	ParkId        string `json:"parkId" dc:"车场id,必须"`
+	Parkid        string `json:"parkid" dc:"车场id,必须"`
 	Couponname    string `json:"couponname"  dc:"优惠券名称,必须"`
 	Coupontype    int8   `json:"coupontype" dc:"1=全免,2=当天全免,3=金额减免,4=小时减免,5=折扣减免（待上线）,必须"`
 	Couponrule    int    `json:"couponrule"  dc:"优惠规则N，如果是小时券，代表优惠N小时，如果是金额券，代表优惠N元,必须"`

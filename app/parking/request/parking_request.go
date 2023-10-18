@@ -115,15 +115,7 @@ func (s *ParkingRequest) GetLaneByParkId(parkId string) (response *config.FsResp
 // GrantCouponToCar 优惠券-按车牌号发放优惠券
 func (s *ParkingRequest) GrantCouponToCar(param *entity.GrantCouponParam) (response *config.FsResponse, err error) {
 	mp := make(map[string]interface{})
-	mp["parkId"] = param.ParkId
-	//mp["couponname"] = param.Couponname
-	//mp["coupontype"] = param.Coupontype
-	//mp["couponrule"] = param.Couponrule
-	//mp["licensenumber"] = param.LicenseNumber
-	//mp["expday"] = param.Expday
-	//mp["num"] = param.Num
-	//mp["source"] = param.Source
-	//mp["userule"] = param.Userule
+	mp["parkid"] = param.Parkid
 	param.Sign = common.GetSign(mp)
 	response, err = s.FsClient.PostJson("coupon/addCouponNotUsed", param)
 	return
