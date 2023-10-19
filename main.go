@@ -12,11 +12,11 @@ import (
 func main() {
 	fmt.Println("停车sdk启动")
 	fsClient := &config.FsHttpClient{}
-	cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
+	//cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
 	req := request.ParkingRequest{FsClient: fsClient}
-	req.GetParkingById(common.ParkId)
+	//req.GetParkingById(common.ParkId)
 	// 1、获取月卡套餐
-	cardReq.GetParkingCardRules(common.ParkId)
+	//cardReq.GetParkingCardRules(common.ParkId)
 	// 2、办卡
 	//cardApplyTest(cardReq)
 	// 3、续费
@@ -60,8 +60,9 @@ func main() {
 	//})
 	// 10、车位预约取消
 	//req.ParkingSpaceCancelReserve(common.ParkId, "210")
-	// 11、入场信息查询
-	//req.ParkingInRecords(&entity.ParkingInoutParam{
+	// 11、出入场信息查询
+	//req.ParkingInOutRecords(&entity.ParkingInoutParam{
+	//	InOut:  2,
 	//	ParkId: common.ParkId,
 	//	//ChargeType:    1,
 	//	//ModelName:     "22",
@@ -70,19 +71,9 @@ func main() {
 	//	Current: 1,
 	//	Size:    10,
 	//})
-	// 12、出场信息查询
-	//req.ParkingOutRecords(&entity.ParkingInoutParam{
-	//	ParkId: common.ParkId,
-	//	//ChargeType:    1,
-	//	//ModelName:     "22",
-	//	//ExceptionType: 1,
-	//	//LicenseNumber: "粤B10232",
-	//	Current:       1,
-	//	Size:          10,
-	//})
-	// 13、根据车场id获取车道信息
-	//req.GetLaneByParkId(common.ParkId)
-	// 14、发放优惠券
+	// 12、根据车场id获取车道信息
+	req.GetLaneByParkId(common.ParkId)
+	// 13、发放优惠券
 	//req.GrantCouponToCar(&entity.GrantCouponParam{
 	//	Parkid:        common.ParkId,
 	//	Couponname:    "充电减免2小时",
@@ -94,7 +85,7 @@ func main() {
 	//	Source:        1,
 	//	Userule:       0,
 	//})
-	// 15、获取商户优惠券
+	// 14、获取商户优惠券
 	//req.GetMerchantCoupons(common.ParkId, 1)
 }
 

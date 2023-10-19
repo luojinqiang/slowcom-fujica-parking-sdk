@@ -61,6 +61,7 @@ type ParkingSpaceReserveParam struct {
 
 // ParkingInoutParam 进出场信息查询参数
 type ParkingInoutParam struct {
+	InOut         int8   `json:"inOut" dc:"进出场 1=进场 2=出场，必须"`
 	ParkId        string `json:"parkId" dc:"车场id,必须"`
 	ChargeType    int8   `json:"chargeType" dc:"计费类型 1=长租车 2=临停车"`
 	ModelName     string `json:"modelName"  dc:"计费名称"`
@@ -84,4 +85,71 @@ type GrantCouponParam struct {
 	Source        int8   `json:"source" dc:"来源1-普通电子券（默认）2-纸质券3-活动券4-时段券"`
 	Userule       int8   `json:"userule" dc:"核销判断标识 1-出场即核销（默认） 0-使用核销（如果用户没有选定此券，下次入场继续可用）"`
 	Sign          string `json:"sign" dc:"签名"`
+}
+
+// ParkingInoutResult 车辆进出场记录结果
+type ParkingInoutResult struct {
+	Records []*ParkingInoutModel `json:"records" dc:"进出场记录列表"`
+	common.PageResult
+}
+
+// ParkingInoutModel 车辆进出场记录model
+type ParkingInoutModel struct {
+	ChargeType        int8   `json:"chargeType" dc:"计费类型 1-长租车 2-临停车"`
+	CouponAmount      int    `json:"couponAmount" dc:"优惠金额"`
+	EnterTime         string `json:"enterTime" dc:"进场时间"`
+	EntranceId        string `json:"entranceId" dc:"停车场入口id"`
+	EntranceName      string `json:"entranceName" dc:"停车场入口名"`
+	Havechildren      string `json:"havechildren" dc:"是否有子车场的入场记录 0-没有 1-有"`
+	Hour              int    `json:"hour" dc:"已停时长 小时数"`
+	Id                string `json:"id" dc:"进出场id"`
+	InUrl             string `json:"inUrl" dc:"车牌入场url–大图"`
+	InUrlSmall        string `json:"inUrlSmall" dc:"车牌入场url–小图"`
+	IsHavechildren    bool   `json:"isHavechildren" dc:"是否有子车场的入场记录 false-没有 true-有"`
+	LicenseNumber1    string `json:"licenseNumber1" dc:"车牌号1"`
+	LicenseNumber2    string `json:"licenseNumber2" dc:"车牌号2"`
+	LicenseType       int8   `json:"licenseType" dc:"车牌类型 1-蓝牌 2-绿牌 3-黄牌 4-白牌 5-黑牌 6-其他"`
+	Minute            int    `json:"minute" dc:"已停时长 分钟数"`
+	OrderStatus       int8   `json:"orderStatus" dc:"订单状态 0-正常 1-异常"`
+	Parentparkinid    string `json:"parentparkinid" dc:"父车场的入场记录id"`
+	ParkId            string `json:"parkId" dc:"停车场id"`
+	ParkName          string `json:"parkName" dc:"停车场名称"`
+	Paytype           int8   `json:"paytype" dc:"支付方式 1：微信 2：支付宝 3：银联 4：月卡 5：现金"`
+	Phone             string `json:"phone" dc:"手机号"`
+	RealTotalAmount   int    `json:"realTotalAmount" dc:"实收总金额"`
+	ShouldTotalAmount int    `json:"shouldTotalAmount" dc:"应收总金额"`
+	Staytime          int    `json:"staytime" dc:"已停时长 总分钟数"`
+	// 出场信息字段
+	EnterId       string `json:"enterId" dc:"入场通道"`
+	ExitTime      string `json:"exitTime" dc:"出场时间"`
+	ImgUrl        string `json:"imgUrl" dc:"出场照片url"`
+	ImgUrl2       string `json:"imgUrl2" dc:"出场照片url"`
+	LicenseNumber string `json:"licenseNumber" dc:"车牌号1"`
+	ParkInId      string `json:"parkInId" dc:"入场id"`
+	ParkInImg     string `json:"parkInImg" dc:"入场照片"`
+	PayType       int    `json:"payType" dc:"支付方式 1：微信 2：支付宝 3：银联 4：月卡 5：现金"`
+}
+
+// ParkingLaneModel 车道信息model
+type ParkingLaneModel struct {
+	Boxid        string `json:"boxid" dc:"岗亭id"`
+	Commonname   string `json:"commonname" dc:"共道车道名称"`
+	Createtime   string `json:"createtime" dc:"创建时间"`
+	Deviceserial string `json:"deviceserial" dc:"萤石云 设备序列号,存在英文字母的设备序列号，字母需为大写"`
+	Hangup       int8   `json:"hangup" dc:"是否挂起0:挂起 1:未挂起"`
+	Id           int    `json:"id" dc:"id"`
+	Iscommon     int    `json:"iscommon" dc:"是否共道"`
+	Lanecode     string `json:"lanecode" dc:"交警上传编码"`
+	Lanecodeid   string `json:"lanecodeid" dc:"交警进出口编码"`
+	Laneid       string `json:"laneid" dc:"车道id"`
+	Lanename     string `json:"lanename" dc:"车道名称"`
+	Laneno       int    `json:"laneno" dc:"通道编码(中转使用)"`
+	Lanerelation string `json:"lanerelation" dc:"车道关联关系"`
+	Lanetype     string `json:"lanetype" dc:"车道类型"`
+	OpType       int8   `json:"opType" dc:"车道类型"`
+	Parkid       string `json:"parkid" dc:"停车场id"`
+	Remark       string `json:"remark" dc:"挂起原因"`
+	Status       string `json:"status" dc:"萤石云设备状态1-开启 2-关闭"`
+	Updatetime   string `json:"updatetime" dc:"修改时间"`
+	Validatecode string `json:"validatecode" dc:"萤石云 设备验证码，设备机身上的六位大写字母"`
 }

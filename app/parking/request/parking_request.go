@@ -1,6 +1,7 @@
 package request
 
 import (
+	"encoding/json"
 	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/common"
 	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking/entity"
 	"github.com/luojinqiang/slowcom-fujica-parking-sdk/config"
@@ -70,8 +71,8 @@ func (s *ParkingRequest) ParkingSpaceCancelReserve(parkId string, id string) (re
 	return
 }
 
-// ParkingInRecords 进出场-入场信息查询
-func (s *ParkingRequest) ParkingInRecords(param *entity.ParkingInoutParam) (response *config.FsResponse, err error) {
+// ParkingInOutRecords 进出场记录查询
+func (s *ParkingRequest) ParkingInOutRecords(param *entity.ParkingInoutParam) (data *entity.ParkingInoutResult, err error) {
 	mp := make(map[string]interface{})
 	mp["parkId"] = param.ParkId
 	mp["chargeType"] = param.ChargeType
@@ -83,32 +84,27 @@ func (s *ParkingRequest) ParkingInRecords(param *entity.ParkingInoutParam) (resp
 		mp["licenseNumber"] = param.LicenseNumber
 	}
 	param.Sign = common.GetSign(mp)
-	response, err = s.FsClient.PostJson("inout/queryPageParkin", param)
-	return
-}
-
-// ParkingOutRecords 进出场-出场信息查询
-func (s *ParkingRequest) ParkingOutRecords(param *entity.ParkingInoutParam) (response *config.FsResponse, err error) {
-	mp := make(map[string]interface{})
-	mp["parkId"] = param.ParkId
-	mp["chargeType"] = param.ChargeType
-	mp["exceptionType"] = param.ExceptionType
-	if param.ModelName != "" {
-		mp["modelName"] = param.ModelName
+	url := "inout/queryPageParkin"
+	if param.InOut == 2 {
+		url = "inout/queryPageParkout"
 	}
-	if param.LicenseNumber != "" {
-		mp["licenseNumber"] = param.LicenseNumber
+	response, err := s.FsClient.PostJson(url, param)
+	if err == nil && response != nil {
+		j, _ := json.Marshal(&response.Data)
+		json.Unmarshal(j, &data)
 	}
-	param.Sign = common.GetSign(mp)
-	response, err = s.FsClient.PostJson("inout/queryPageParkout", param)
 	return
 }
 
 // GetLaneByParkId 进出场-根据车场id获取车道信息
-func (s *ParkingRequest) GetLaneByParkId(parkId string) (response *config.FsResponse, err error) {
+func (s *ParkingRequest) GetLaneByParkId(parkId string) (data *entity.ParkingLaneModel, err error) {
 	mp := map[string]interface{}{"parkId": parkId}
 	mp["sign"] = common.GetSign(mp)
-	response, err = s.FsClient.PostJson("park/seltlandebyparkid", mp)
+	response, err := s.FsClient.PostJson("park/seltlandebyparkid", mp)
+	if err == nil && response != nil {
+		j, _ := json.Marshal(&response.Data)
+		json.Unmarshal(j, &data)
+	}
 	return
 }
 
