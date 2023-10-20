@@ -16,7 +16,9 @@ const (
 
 // FsHttpClient 富士httpClient
 type FsHttpClient struct {
-	rwLock sync.RWMutex
+	Token   string
+	BaseUrl string
+	RwLock  sync.RWMutex
 }
 
 // 生成一个http请求客户端
@@ -32,7 +34,7 @@ func buildHttpClient() *httpclient.HttpClient {
 
 // Get get请求
 func (s *FsHttpClient) Get(url string) (response *FsResponse, err error) {
-	res, err := buildHttpClient().WithHeader("Authorization", "Bearer "+common.Token).Get(common.BuildUrl(url), url2.Values{})
+	res, err := buildHttpClient().WithHeader("Authorization", "Bearer "+s.Token).Get(common.BuildUrl(s.BaseUrl, url), url2.Values{})
 	if err != nil {
 		return
 	}
@@ -42,7 +44,7 @@ func (s *FsHttpClient) Get(url string) (response *FsResponse, err error) {
 
 // PostJson postJson请求
 func (s *FsHttpClient) PostJson(url string, data interface{}) (response *FsResponse, err error) {
-	res, err := buildHttpClient().WithHeader("Token", common.Token).PostJson(common.BuildUrl(url), data)
+	res, err := buildHttpClient().WithHeader("Token", s.Token).PostJson(common.BuildUrl(s.BaseUrl, url), data)
 	if err != nil {
 		return
 	}
@@ -52,10 +54,10 @@ func (s *FsHttpClient) PostJson(url string, data interface{}) (response *FsRespo
 }
 
 // GetToken 获取token请求
-func (s *FsHttpClient) GetToken() (response *FsResponse, err error) {
-	mp := map[string]interface{}{"appId": common.AppId, "appSecret": common.AppSecret, "mchId": common.MchId}
+func (s *FsHttpClient) GetToken(appId string, appSecret string, mchId string) (response *FsResponse, err error) {
+	mp := map[string]interface{}{"appId": appId, "appSecret": appSecret, "mchId": mchId}
 	mp["sign"] = common.GetSign(mp)
-	res, err := buildHttpClient().PostJson(common.BuildUrl("fujica/api/v1/public/token"), mp)
+	res, err := buildHttpClient().PostJson(common.BuildUrl(s.BaseUrl, "public/token"), mp)
 	if err != nil {
 		return
 	}

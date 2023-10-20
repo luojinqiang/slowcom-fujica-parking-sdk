@@ -14,8 +14,9 @@ import (
 func GetSign(data map[string]interface{}) (encryptSign string) {
 	param := JoinStringsInASCII(data)
 	fmt.Println("排序后参数：", param)
-	sign := CreateSign(PartnerKey, param)
-	encryptSign = Encrypt(PartnerKey, sign)
+	partnerKey := "4B180E05FFF1CF42EB73D07AEE1E0BE61EBE7D4481634E5BC568D8683660ED0E"
+	sign := CreateSign(partnerKey, param)
+	encryptSign = Encrypt(partnerKey, sign)
 	return
 }
 
@@ -32,10 +33,6 @@ func Encrypt(partnerKey string, sign string) string {
 	return string(gbase64.Encode(bytes))
 }
 
-func BuildUrl(url string) string {
-	return fmt.Sprintf("%s%s", BaseUrl, url)
-}
-
 // JoinStringsInASCII 按照规则，参数名ASCII码从小到大排序后拼接
 func JoinStringsInASCII(data map[string]interface{}) string {
 	var keyValList []string
@@ -48,4 +45,8 @@ func JoinStringsInASCII(data map[string]interface{}) string {
 		keyValList = append(keyValList, fmt.Sprintf("%s=%v", k, data[k]))
 	}
 	return strings.Join(keyValList, "")
+}
+
+func BuildUrl(baseUrl string, url string) string {
+	return fmt.Sprintf("%s%s", baseUrl, url)
 }

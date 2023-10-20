@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/common"
-	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking/request"
 	cardEntity "github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking_card/entity"
 	cardRequest "github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking_card/request"
 	"github.com/luojinqiang/slowcom-fujica-parking-sdk/config"
@@ -11,21 +9,27 @@ import (
 
 func main() {
 	fmt.Println("停车sdk启动")
-	fsClient := &config.FsHttpClient{}
-	//cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
-	req := request.ParkingRequest{FsClient: fsClient}
+	parkId := ""
+	fsClient := &config.FsHttpClient{
+		BaseUrl: "",
+		Token:   "",
+	}
+	cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
+	//req := request.ParkingRequest{FsClient: fsClient}
 	//req.GetParkingById(common.ParkId)
 	// 1、获取月卡套餐
-	//cardReq.GetParkingCardRules(common.ParkId)
+	cardReq.GetParkingCardRules(parkId)
 	// 2、办卡
 	//cardApplyTest(cardReq)
 	// 3、续费
 	//cardRenewTest(req)
+	// 注销月卡
+	//cardReq.ParkingCardCancel(common.ParkId, 213355, "测试月卡注销")
 	// 4、获取月卡列表
-	//req.GetParkingCards(&entity.ParkingCardSearchParam{
+	//cardReq.GetParkingCards(&cardEntity.ParkingCardSearchParam{
 	//	ParkId:   common.ParkId,
 	//	IsCommon: "0",
-	//	Status:   6,
+	//	Status:   1,
 	//	Current:  1,
 	//	Size:     10,
 	//})
@@ -72,7 +76,7 @@ func main() {
 	//	Size:    10,
 	//})
 	// 12、根据车场id获取车道信息
-	req.GetLaneByParkId(common.ParkId)
+	//req.GetLaneByParkId(common.ParkId)
 	// 13、发放优惠券
 	//req.GrantCouponToCar(&entity.GrantCouponParam{
 	//	Parkid:        common.ParkId,
@@ -91,7 +95,7 @@ func main() {
 
 func cardRenewTest(req cardRequest.ParkingCardRequest) {
 	req.ParkingCardRenew(&cardEntity.ParkingCardRenewParam{
-		ParkId:           common.ParkId,
+		ParkId:           "",
 		CardId:           212537,
 		AmountReceivable: 10000,
 		CardCopies:       1,
@@ -103,7 +107,7 @@ func cardRenewTest(req cardRequest.ParkingCardRequest) {
 
 func cardApplyTest(req cardRequest.ParkingCardRequest) {
 	req.ParkingCardApply(&cardEntity.ParkingCardApplyParam{
-		ParkId:           common.ParkId,
+		ParkId:           "",
 		UserName:         "王凯新",
 		CardTypeId:       1101,
 		AmountReceivable: 10000,

@@ -122,9 +122,11 @@ func (s *ParkingCardRequest) ParkingCardRenew(param *entity.ParkingCardRenewPara
 // ParkingCardCancel 月卡-月卡注销
 // cardId 月卡id-必须, cause 注销原因-必须
 func (s *ParkingCardRequest) ParkingCardCancel(parkId string, cardId int64, cause string) (response *config.FsResponse, err error) {
-	mp := map[string]interface{}{"parkId": parkId, "sign": common.InterfaceSign}
+	mp := make(map[string]interface{})
+	mp["parkId"] = parkId
 	mp["cardId"] = cardId
 	mp["cause"] = cause
+	mp["sign"] = common.GetSign(mp)
 	response, err = s.FsClient.PostJson("card/cancelOneCard", mp)
 	return
 }
