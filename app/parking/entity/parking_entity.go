@@ -153,3 +153,8 @@ type ParkingLaneModel struct {
 	Updatetime   string `json:"updatetime" dc:"修改时间"`
 	Validatecode string `json:"validatecode" dc:"萤石云 设备验证码，设备机身上的六位大写字母"`
 }
+
+// ParkingSpaceReserveResult 车位预定返回结果
+type ParkingSpaceReserveResult struct {
+	Id string `json:"id" dc:"id"`
+}

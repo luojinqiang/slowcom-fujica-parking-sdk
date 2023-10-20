@@ -54,7 +54,7 @@ func main() {
 	// 9、车位预约
 	//req.ParkingSpaceReserve(&entity.ParkingSpaceReserveParam{
 	//	ParkId:         common.ParkId,
-	//	LicenseNumber:  "粤B12323",
+	//	LicenseNumber:  "粤B12343",
 	//	ReserveInTime:  gtime.Now(),
 	//	ReserveOutTime: gtime.Now().Add(time.Duration(5) * time.Hour),
 	//})

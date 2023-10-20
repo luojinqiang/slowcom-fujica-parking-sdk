@@ -55,10 +55,14 @@ func (s *ParkingRequest) CarPayRecords(param *entity.CarPayRecordsParam) (respon
 }
 
 // ParkingSpaceReserve 车位-车场级预约
-func (s *ParkingRequest) ParkingSpaceReserve(param *entity.ParkingSpaceReserveParam) (response *config.FsResponse, err error) {
+func (s *ParkingRequest) ParkingSpaceReserve(param *entity.ParkingSpaceReserveParam) (data *entity.ParkingSpaceReserveResult, err error) {
 	mp := map[string]interface{}{"parkId": param.ParkId}
 	param.Sign = common.GetSign(mp)
-	response, err = s.FsClient.PostJson("reserves/saveReserve", param)
+	response, err := s.FsClient.PostJson("reserves/saveReserve", param)
+	if err == nil && response != nil {
+		j, _ := json.Marshal(&response.Data)
+		json.Unmarshal(j, &data)
+	}
 	return
 }
 

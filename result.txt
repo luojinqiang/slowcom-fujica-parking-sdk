@@ -29,7 +29,8 @@
     realoutplacetime:<nil>
     reserverInTime:2023-10-17 16:15
     reserverOutTime:2023-10-17 21:15
-    reserverTime:0 reserverTimeExport:0分钟
+    reserverTime:0
+    reserverTimeExport:0分钟
     reservetype:<nil>
     state:1
     stateExport:未入场
