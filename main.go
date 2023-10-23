@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking/entity"
+	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking/request"
 	cardEntity "github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking_card/entity"
 	cardRequest "github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking_card/request"
 	"github.com/luojinqiang/slowcom-fujica-parking-sdk/config"
@@ -14,11 +16,11 @@ func main() {
 		BaseUrl: "",
 		Token:   "",
 	}
-	cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
-	//req := request.ParkingRequest{FsClient: fsClient}
+	req := request.ParkingRequest{FsClient: fsClient}
 	//req.GetParkingById(common.ParkId)
+	//cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
 	// 1、获取月卡套餐
-	cardReq.GetParkingCardRules(parkId)
+	//cardReq.GetParkingCardRules(parkId)
 	// 2、办卡
 	//cardApplyTest(cardReq)
 	// 3、续费
@@ -36,10 +38,11 @@ func main() {
 	// 5、查个人信息及月卡
 	// req.GetCarOwnerInfo(common.ParkId, "", "", "15076453821", "")
 	// 6、查询车辆停车费
-	//req.CarBillRecords(&entity.CarBillRecordsParam{
-	//	ParkId:        common.ParkId,
-	//	LicenseNumber: "粤B98212",
-	//})
+	req.CarBillRecords(&entity.CarBillRecordsParam{
+		ParkId:        parkId,
+		LicenseNumber: "粤B98212",
+		CouponIds:     []string{"1573280"},
+	})
 	// 7、查询缴费记录
 	//req.CarPayRecords(&entity.CarPayRecordsParam{
 	//	ParkId:        common.ParkId,
@@ -49,7 +52,7 @@ func main() {
 	//})
 	// 8、上传支付结果
 	//req.CarPayAdd(&entity.CarPayAddParam{
-	//	ParkId:      common.ParkId,
+	//	ParkId:      parkId,
 	//	OrderId:     "AB115353",
 	//	PayStatus:   "2",
 	//	PayWay:      1,
@@ -79,11 +82,11 @@ func main() {
 	//req.GetLaneByParkId(common.ParkId)
 	// 13、发放优惠券
 	//req.GrantCouponToCar(&entity.GrantCouponParam{
-	//	Parkid:        common.ParkId,
+	//	Parkid:        parkId,
 	//	Couponname:    "充电减免2小时",
 	//	Coupontype:    4,
 	//	Couponrule:    2,
-	//	LicenseNumber: "粤B98212",
+	//	LicenseNumber: "粤B93412",
 	//	Expday:        7,
 	//	Num:           2,
 	//	Source:        1,

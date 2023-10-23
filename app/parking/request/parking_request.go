@@ -20,13 +20,17 @@ func (s *ParkingRequest) GetParkingById(parkId string) (response *config.FsRespo
 }
 
 // CarBillRecords 计费-车辆计费（只能查询单个车辆停车费）
-func (s *ParkingRequest) CarBillRecords(param *entity.CarBillRecordsParam) (response *config.FsResponse, err error) {
+func (s *ParkingRequest) CarBillRecords(param *entity.CarBillRecordsParam) (data *entity.CarBillRecordsModel, err error) {
 	mp := make(map[string]interface{})
 	mp["parkId"] = param.ParkId
 	mp["licenseNumber"] = param.LicenseNumber
 	mp["licenseType"] = param.LicenseType
 	param.Sign = common.GetSign(mp)
-	response, err = s.FsClient.PostJson("payrecord/charge", param)
+	response, err := s.FsClient.PostJson("payrecord/charge", param)
+	if err == nil && response != nil {
+		j, _ := json.Marshal(&response.Data)
+		json.Unmarshal(j, &data)
+	}
 	return
 }
 

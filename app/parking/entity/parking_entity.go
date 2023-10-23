@@ -158,3 +158,64 @@ type ParkingLaneModel struct {
 type ParkingSpaceReserveResult struct {
 	Id string `json:"id" dc:"id"`
 }
+
+// CarBillRecordsModel 车辆计费返回结果model
+type CarBillRecordsModel struct {
+	Flag                int8          `json:"flag" dc:"用于判断是否需缴费 0:需要 1:不需要"`
+	FlagMsg             string        `json:"flagMsg" dc:"flag中文释义"`
+	Pay                 bool          `json:"pay" dc:"是否已缴费 false-未缴费 "`
+	FreeTime            int           `json:"freeTime" dc:"	免费时长"`
+	ShouldPay           int           `json:"shouldPay" dc:"应付费用 单位/分"`
+	ShouldPayMoney      float64       `json:"shouldPayMoney" dc:"应付费用 单位/元"`
+	StayTime            string        `json:"stayTime" dc:"停留时长，例：1<span>分钟</span>3<span>秒<span>"`
+	StayTimeMinute      int           `json:"stayTimeMinute" dc:"停留时长分钟，1"`
+	TotalPay            int           `json:"totalPay" dc:"总费用 单位/分"`
+	TotalPayMoney       float64       `json:"totalPayMoney" dc:"总费用 单位/分"`
+	OrderId             string        `json:"orderId" dc:"订单id"`
+	CarType             int8          `json:"carType" dc:"车辆类型"`
+	CardCategory        int8          `json:"cardCategory" dc:"长租车套餐类别 1-月卡 2-季卡 3-半年卡 4-年卡"`
+	CardEffective       int8          `json:"cardEffective" dc:"长租车套餐是否有效？0；无 1：有效 2：无效"`
+	CardEndTime         string        `json:"cardEndTime" dc:"长租车套餐失效时间"`
+	CardFailDate        string        `json:"cardFailDate" dc:"长租车套餐失效时间"`
+	CardFreeType        int           `json:"cardFreeType" dc:""`
+	CardId              int64         `json:"cardId" dc:"长租车套餐ID"`
+	CardName            string        `json:"cardName" dc:"长租车套餐名称"`
+	CardRemainingDays   int           `json:"cardRemainingDays" dc:"长租车套餐剩余天数"`
+	CardStatus          int8          `json:"cardStatus" dc:"当前长租车套餐状态 1-正常 2-冻结 3-宽限期 4-过期 5-注销"`
+	CardTypeid          int64         `json:"cardTypeid" dc:"长租车套餐类型id"`
+	CouponAmount        int           `json:"couponAmount" dc:"优惠金额 单位/分"`
+	CouponMoney         float64       `json:"couponMoney" dc:"优惠金额 单位/元"`
+	CouponId            int64         `json:"couponId" dc:"优惠券id"`
+	CouponIds           []int64       `json:"couponIds" dc:"优惠券id数组"`
+	CouponInfo          string        `json:"couponInfo" dc:"优惠信息"`
+	CouponRule          int           `json:"couponRule" dc:"实际优惠规则 时间型：小时 金额型：小时"`
+	CouponType          int8          `json:"couponType" dc:"优惠券类型（1-全免；2-当天全免；3-金额减免；4-小时减免；5-折扣减免）"`
+	CouponValid         int8          `json:"couponValid" dc:"优惠券状态 0-无优惠券 1-有优惠券且可用 2-有优惠券但不可用 3-超时不可用"`
+	CreateTime          string        `json:"createTime" dc:"记录创建时间"`
+	DepartTimeOutMinute string        `json:"departTimeOutMinute" dc:"已缴费后离场超时的时长"`
+	DepartureTime       int           `json:"departureTime" dc:"离场超时时长"`
+	Enabled             int8          `json:"enabled" dc:"长租车是否启用"`
+	EnterTime           string        `json:"enterTime" dc:"进场时间"`
+	IsFindCar           string        `json:"isFindCar" dc:"是否支持反向寻车 0:不支持 1:支持"`
+	IsInvoice           bool          `json:"isInvoice" dc:"是否支持开票 true:支持 false:不支持"`
+	LeaveDateTime       string        `json:"leaveDateTime" dc:"缴费后离开日期时间"`
+	LicenseNumber       string        `json:"licenseNumber" dc:"车牌号"`
+	LicenseType         int8          `json:"licenseType" dc:"车牌类型"`
+	LicenseTypes        []interface{} `json:"licenseTypes" dc:"车牌类型Map"`
+	NowTime             string        `json:"nowTime" dc:"当前时间"`
+	OutSeconds          int           `json:"outSeconds" dc:"离场秒数 单位/秒"`
+	OutTime             string        `json:"outTime" dc:"出场时间"`
+	PaidMoney           float64       `json:"paidMoney" dc:"已付费用"`
+	ParkId              string        `json:"parkId" dc:"停车场id"`
+	ParkName            string        `json:"parkName" dc:"停车场名称"`
+	ParkRecordId        string        `json:"parkRecordId" dc:"停车记录id"`
+	ParkingLot          int           `json:"parkingLot" dc:"车位数"`
+	PayId               string        `json:"payId" dc:"付费记录id"`
+	PayTime             string        `json:"payTime" dc:"付费时间"`
+	PayType             int8          `json:"payType" dc:"付费类型 1：微信 2：支付宝 3：银联 4：月卡 5：现金"`
+	PayWay              bool          `json:"payWay" dc:"付费方式 1：线上 2：线下"`
+	Remark              string        `json:"remark" dc:"备注"`
+	Type                int           `json:"type" dc:"用户判断能否出场的原因"`
+	TypeMsg             string        `json:"typeMsg" dc:"type中文释义"`
+	UserId              string        `json:"userId" dc:"用户id"`
+}
