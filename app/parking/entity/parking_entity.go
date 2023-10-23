@@ -170,7 +170,7 @@ type CarBillRecordsModel struct {
 	StayTime            string        `json:"stayTime" dc:"停留时长，例：1<span>分钟</span>3<span>秒<span>"`
 	StayTimeMinute      int           `json:"stayTimeMinute" dc:"停留时长分钟，1"`
 	TotalPay            int           `json:"totalPay" dc:"总费用 单位/分"`
-	TotalPayMoney       float64       `json:"totalPayMoney" dc:"总费用 单位/分"`
+	TotalPayMoney       float64       `json:"totalPayMoney" dc:"总费用 单位/元"`
 	OrderId             string        `json:"orderId" dc:"订单id"`
 	CarType             int8          `json:"carType" dc:"车辆类型"`
 	CardCategory        int8          `json:"cardCategory" dc:"长租车套餐类别 1-月卡 2-季卡 3-半年卡 4-年卡"`
