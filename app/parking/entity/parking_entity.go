@@ -164,7 +164,7 @@ type CarBillRecordsModel struct {
 	Flag                int8          `json:"flag" dc:"用于判断是否需缴费 0:需要 1:不需要"`
 	FlagMsg             string        `json:"flagMsg" dc:"flag中文释义"`
 	Pay                 bool          `json:"pay" dc:"是否已缴费 false-未缴费 "`
-	FreeTime            int           `json:"freeTime" dc:"	免费时长"`
+	FreeTime            int           `json:"freeTime" dc:"免费时长"`
 	ShouldPay           int           `json:"shouldPay" dc:"应付费用 单位/分"`
 	ShouldPayMoney      float64       `json:"shouldPayMoney" dc:"应付费用 单位/元"`
 	StayTime            string        `json:"stayTime" dc:"停留时长，例：1<span>分钟</span>3<span>秒<span>"`
