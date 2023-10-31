@@ -24,6 +24,7 @@ type CarPayAddParam struct {
 	PayStatus   string `json:"payStatus"  dc:"支付状态:0支付中,1支付完成/成功,2支付关闭/失败,3退款成功,8建行无感支付,9第三方支付(线上),10第三方(线下),必须"`
 	PayWay      int8   `json:"payWay" dc:"支付方式 第三方平台来源枚举 1：上海公共信息平台,2:苏州建发云锦湾,必须"`
 	SuccessTime string `json:"successTime"  dc:"支付时间yyyy-MM-dd HH:mm:ss"`
+	PayId       string `json:"payId" dc:"支付id,必须"`
 	Sign        string `json:"sign" dc:"签名"`
 }
 
