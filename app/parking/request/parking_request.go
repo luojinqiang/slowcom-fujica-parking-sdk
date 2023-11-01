@@ -105,13 +105,13 @@ func (s *ParkingRequest) ParkingInOutRecords(param *entity.ParkingInoutParam) (d
 }
 
 // GetLaneByParkId 进出场-根据车场id获取车道信息
-func (s *ParkingRequest) GetLaneByParkId(parkId string) (data *entity.ParkingLaneModel, err error) {
+func (s *ParkingRequest) GetLaneByParkId(parkId string) (list []*entity.ParkingLaneModel, err error) {
 	mp := map[string]interface{}{"parkId": parkId}
 	mp["sign"] = common.GetSign(mp)
 	response, err := s.FsClient.PostJson("park/seltlandebyparkid", mp)
 	if err == nil && response != nil {
 		j, _ := json.Marshal(&response.Data)
-		json.Unmarshal(j, &data)
+		json.Unmarshal(j, &list)
 	}
 	return
 }
@@ -130,5 +130,38 @@ func (s *ParkingRequest) GetMerchantCoupons(parkId string, shopId int64) (respon
 	mp := map[string]interface{}{"parkId": parkId, "shopId": shopId}
 	mp["sign"] = common.GetSign(mp)
 	response, err = s.FsClient.PostJson("coupon/distribution/getCarCouponList", mp)
+	return
+}
+
+// UnlicensedInOut 进出场-无牌车扫码出、入场
+func (s *ParkingRequest) UnlicensedInOut(param *entity.UnlicensedInOutParam) (data *entity.UnlicensedInOutModel, err error) {
+	mp := make(map[string]interface{})
+	mp["parkid"] = param.Parkid
+	mp["openId"] = param.OpenId
+	mp["entranceid"] = param.Entranceid
+	param.Sign = common.GetSign(mp)
+	url := "parkin/noLicenseParkin"
+	if param.InOut == 2 {
+		url = "parkout/scanOut"
+	}
+	response, err := s.FsClient.PostJson(url, param)
+	if err == nil && response != nil {
+		j, _ := json.Marshal(&response.Data)
+		json.Unmarshal(j, &data)
+	}
+	return
+}
+
+// GetCarNoByPressure 进出场-压地感查询，根据车道码查询返回车牌
+// laneno 车道编码-必须
+func (s *ParkingRequest) GetCarNoByPressure(parkId string, laneno string) (data *entity.CarNoPressureModel, err error) {
+	mp := map[string]interface{}{"parkId": parkId}
+	mp["laneno"] = laneno
+	mp["sign"] = common.GetSign(mp)
+	response, err := s.FsClient.PostJson("payment/getParkOutInfo", mp)
+	if err == nil && response != nil {
+		j, _ := json.Marshal(&response.Data)
+		json.Unmarshal(j, &data)
+	}
 	return
 }

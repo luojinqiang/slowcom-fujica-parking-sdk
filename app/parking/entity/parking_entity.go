@@ -24,7 +24,6 @@ type CarPayAddParam struct {
 	PayStatus   string `json:"payStatus"  dc:"支付状态:0支付中,1支付完成/成功,2支付关闭/失败,3退款成功,8建行无感支付,9第三方支付(线上),10第三方(线下),必须"`
 	PayWay      int8   `json:"payWay" dc:"支付方式 第三方平台来源枚举 1：上海公共信息平台,2:苏州建发云锦湾,必须"`
 	SuccessTime string `json:"successTime"  dc:"支付时间yyyy-MM-dd HH:mm:ss"`
-	PayId       string `json:"payId" dc:"支付id,必须"`
 	Sign        string `json:"sign" dc:"签名"`
 }
 
@@ -146,7 +145,7 @@ type ParkingLaneModel struct {
 	Lanename     string `json:"lanename" dc:"车道名称"`
 	Laneno       int    `json:"laneno" dc:"通道编码(中转使用)"`
 	Lanerelation string `json:"lanerelation" dc:"车道关联关系"`
-	Lanetype     string `json:"lanetype" dc:"车道类型"`
+	Lanetype     string `json:"lanetype" dc:"车道类型，1入口2出口"`
 	OpType       int8   `json:"opType" dc:"车道类型"`
 	Parkid       string `json:"parkid" dc:"停车场id"`
 	Remark       string `json:"remark" dc:"挂起原因"`
@@ -219,4 +218,41 @@ type CarBillRecordsModel struct {
 	Type                int           `json:"type" dc:"用户判断能否出场的原因"`
 	TypeMsg             string        `json:"typeMsg" dc:"type中文释义"`
 	UserId              string        `json:"userId" dc:"用户id"`
+}
+
+// UnlicensedInOutParam 无牌车扫码出、入场参数
+type UnlicensedInOutParam struct {
+	InOut      int8   `json:"inOut" dc:"进出场 1=进场 2=出场，必须"`
+	Parkid     string `json:"parkid" dc:"车场id,必须"`
+	OpenId     string `json:"openId"  dc:"优惠券名称,必须"`
+	Entranceid string `json:"entranceid" dc:"出、入口通道ID,必须"`
+	Sign       string `json:"sign" dc:"签名"`
+}
+
+// UnlicensedInOutModel 无牌车扫码出、入场model
+type UnlicensedInOutModel struct {
+	Id             string `json:"id"`
+	Parkid         string `json:"parkid"`
+	Entranceid     string `json:"entranceid"`
+	Entrancename   string `json:"entrancename"`
+	Licensenumber  string `json:"licensenumber"`
+	Licensenumber1 string `json:"licensenumber1"`
+	Licensenumber2 string `json:"licensenumber2"`
+	Imgurl1        string `json:"imgurl1"`
+	Imgurl2        string `json:"imgurl2"`
+	Remark         string `json:"remark"`
+	Entertime      string `json:"entertime"`
+	EnterTime      string `json:"enterTime"`
+	State          int8   `json:"state"`
+	OpenId         string `json:"openId"`
+	StartTime      string `json:"startTime"`
+	EndTime        string `json:"endTime"`
+}
+
+// CarNoPressureModel 压地感model
+type CarNoPressureModel struct {
+	ExitTime      string `json:"exitTime" dc:"离场时间"`
+	LicenceNumber string `json:"licenceNumber" dc:"	车牌信息"`
+	LicenceType   string `json:"licenceType" dc:"车牌类型"`
+	ParkinId      string `json:"parkinId" dc:"入场id"`
 }

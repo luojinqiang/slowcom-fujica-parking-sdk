@@ -16,7 +16,7 @@ func main() {
 		Token:   "",
 	}
 	req := request.ParkingRequest{FsClient: fsClient}
-	req.GetParkingById(parkId)
+	//req.GetParkingById(parkId)
 	//cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
 	// 1、获取月卡套餐
 	//cardReq.GetParkingCardRules(parkId)
@@ -78,7 +78,7 @@ func main() {
 	//	Size:    10,
 	//})
 	// 12、根据车场id获取车道信息
-	//req.GetLaneByParkId(common.ParkId)
+	//req.GetLaneByParkId(parkId)
 	// 13、发放优惠券
 	//req.GrantCouponToCar(&entity.GrantCouponParam{
 	//	Parkid:        parkId,
@@ -93,6 +93,15 @@ func main() {
 	//})
 	// 14、获取商户优惠券
 	//req.GetMerchantCoupons(common.ParkId, 1)
+	// 15、无牌车扫码出入场
+	//req.UnlicensedInOut(&entity.UnlicensedInOutParam{
+	//	InOut:      1,
+	//	Parkid:     parkId,
+	//	OpenId:     "abc123",
+	//	Entranceid: "275709504053317",
+	//})
+	// 16、压地感查询
+	req.GetCarNoByPressure(parkId, "275709540405317")
 }
 
 func cardRenewTest(req cardRequest.ParkingCardRequest) {
