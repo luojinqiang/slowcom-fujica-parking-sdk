@@ -2,7 +2,6 @@ package request
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/common"
 	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking/entity"
 	"github.com/luojinqiang/slowcom-fujica-parking-sdk/config"
@@ -155,7 +154,6 @@ func (s *ParkingRequest) ParkingOutRecords(param *entity.ParkingOutParam) (data 
 	mp["sign"] = common.GetSign(signMap)
 	url := "inout/queryPageParkout"
 	response, err := s.FsClient.PostJson(url, mp)
-	fmt.Println("response = ", response)
 	if err == nil && response != nil {
 		j, _ := json.Marshal(&response.Data)
 		json.Unmarshal(j, &data)
