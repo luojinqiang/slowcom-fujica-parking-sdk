@@ -252,7 +252,7 @@ type UnlicensedInOutModel struct {
 // CarNoPressureModel 压地感model
 type CarNoPressureModel struct {
 	ExitTime      string `json:"exitTime" dc:"离场时间"`
-	LicenceNumber string `json:"licenceNumber" dc:"	车牌信息"`
+	LicenceNumber string `json:"licenceNumber" dc:"车牌信息"`
 	LicenceType   string `json:"licenceType" dc:"车牌类型"`
 	ParkinId      string `json:"parkinId" dc:"入场id"`
 }
