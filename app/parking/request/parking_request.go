@@ -79,24 +79,81 @@ func (s *ParkingRequest) ParkingSpaceCancelReserve(parkId string, id string) (re
 	return
 }
 
-// ParkingInOutRecords 进出场记录查询
-func (s *ParkingRequest) ParkingInOutRecords(param *entity.ParkingInoutParam) (data *entity.ParkingInoutResult, err error) {
-	mp := make(map[string]interface{})
-	mp["parkId"] = param.ParkId
-	mp["chargeType"] = param.ChargeType
-	mp["exceptionType"] = param.ExceptionType
+// ParkingInRecords 进场记录查询
+func (s *ParkingRequest) ParkingInRecords(param *entity.ParkingInParam) (data *entity.ParkingInResult, err error) {
+	mp := common.StructToMap(param)
+	signMap := make(map[string]interface{})
+	signMap["parkId"] = param.ParkId
+	signMap["chargeType"] = param.ChargeType
+	signMap["exceptionType"] = param.ExceptionType
 	if param.ModelName != "" {
-		mp["modelName"] = param.ModelName
+		signMap["modelName"] = param.ModelName
 	}
 	if param.LicenseNumber != "" {
-		mp["licenseNumber"] = param.LicenseNumber
+		signMap["licenseNumber"] = param.LicenseNumber
 	}
-	param.Sign = common.GetSign(mp)
+	if param.MaxStayTime > 0 {
+		signMap["maxStayTime"] = param.MaxStayTime
+	} else {
+		delete(mp, "maxStayTime")
+	}
+	if param.MinStayTime > 0 {
+		signMap["minStayTime"] = param.MinStayTime
+	} else {
+		delete(mp, "minStayTime")
+	}
+	mp["sign"] = common.GetSign(signMap)
 	url := "inout/queryPageParkin"
-	if param.InOut == 2 {
-		url = "inout/queryPageParkout"
+	response, err := s.FsClient.PostJson(url, mp)
+	if err == nil && response != nil {
+		j, _ := json.Marshal(&response.Data)
+		json.Unmarshal(j, &data)
 	}
-	response, err := s.FsClient.PostJson(url, param)
+	return
+}
+
+// ParkingOutRecords 出场记录查询
+func (s *ParkingRequest) ParkingOutRecords(param *entity.ParkingOutParam) (data *entity.ParkingOutResult, err error) {
+	mp := common.StructToMap(param)
+	signMap := make(map[string]interface{})
+	signMap["parkId"] = param.ParkId
+	signMap["chargeType"] = param.ChargeType
+	if param.ExceptionType > 0 {
+		signMap["exceptionType"] = param.ExceptionType
+	} else {
+		delete(mp, "exceptionType")
+	}
+	if param.ModelName != "" {
+		signMap["modelName"] = param.ModelName
+	}
+	if param.LicenseNumber != "" {
+		signMap["licenseNumber"] = param.LicenseNumber
+	}
+	if param.MaxStayTime > 0 {
+		signMap["maxStayTime"] = param.MaxStayTime
+	} else {
+		delete(mp, "maxStayTime")
+	}
+	if param.MinStayTime > 0 {
+		signMap["minStayTime"] = param.MinStayTime
+	} else {
+		delete(mp, "minStayTime")
+	}
+	if param.BeginOutTime == `` {
+		delete(mp, "beginOutTime")
+	}
+	if param.BeginEnterTime == `` {
+		delete(mp, "beginEnterTime")
+	}
+	if param.EndOutTime == `` {
+		delete(mp, "endOutTime")
+	}
+	if param.EndEnterTime == `` {
+		delete(mp, "endEnterTime")
+	}
+	mp["sign"] = common.GetSign(signMap)
+	url := "inout/queryPageParkout"
+	response, err := s.FsClient.PostJson(url, mp)
 	if err == nil && response != nil {
 		j, _ := json.Marshal(&response.Data)
 		json.Unmarshal(j, &data)

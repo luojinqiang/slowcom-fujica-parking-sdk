@@ -59,17 +59,36 @@ type ParkingSpaceReserveParam struct {
 	Sign           string      `json:"sign" dc:"签名"`
 }
 
-// ParkingInoutParam 进出场信息查询参数
-type ParkingInoutParam struct {
-	InOut         int8   `json:"inOut" dc:"进出场 1=进场 2=出场，必须"`
-	ParkId        string `json:"parkId" dc:"车场id,必须"`
-	ChargeType    int8   `json:"chargeType" dc:"计费类型 1=长租车 2=临停车"`
-	ModelName     string `json:"modelName"  dc:"计费名称"`
-	ExceptionType int8   `json:"exceptionType"  dc:"异常类型 1-手动入场 2-岗亭收费 3-免费开闸 4-异常离场 5-手动出场"`
-	LicenseNumber string `json:"licenseNumber" dc:"车牌号"`
-	Sign          string `json:"sign" dc:"签名"`
-	Current       int    `json:"current" dc:"分页-当前页码（从1开始），必须(出场接口不必须)"`
-	Size          int    `json:"size" dc:"分页-每页记录数（默认为10），必须(出场接口不必须)"`
+// ParkingInParam 进场信息查询参数
+type ParkingInParam struct {
+	ParkId         string `json:"parkId" dc:"车场id,必须"`
+	ChargeType     int8   `json:"chargeType" dc:"计费类型 1=长租车 2=临停车"`
+	ModelName      string `json:"modelName"  dc:"计费名称"`
+	ExceptionType  int8   `json:"exceptionType"  dc:"异常类型 1-手动入场 2-岗亭收费 3-免费开闸 4-异常离场 5-手动出场"`
+	LicenseNumber  string `json:"licenseNumber" dc:"车牌号"`
+	BeginEnterTime string `json:"beginEnterTime" dc:"最早入场时间，格式：yyyy-MM-dd HH:mm:ss"`
+	EndEnterTime   string `json:"endEnterTime" dc:"最晚入场时间，格式：yyyy-MM-dd HH:mm:ss"`
+	MaxStayTime    int    `json:"maxStayTime" dc:"最长停留时间"`
+	MinStayTime    int    `json:"minStayTime" dc:"最短停留时间"`
+	Current        int    `json:"current" dc:"分页-当前页码（从1开始），必须(出场接口不必须)"`
+	Size           int    `json:"size" dc:"分页-每页记录数（默认为10），必须(出场接口不必须)"`
+}
+
+// ParkingOutParam 出场信息查询参数
+type ParkingOutParam struct {
+	ParkId         string `json:"parkId" dc:"车场id,必须"`
+	ChargeType     int8   `json:"chargeType" dc:"计费类型 1=长租车 2=临停车"`
+	ModelName      string `json:"modelName"  dc:"计费名称"`
+	ExceptionType  int8   `json:"exceptionType"  dc:"异常类型 1-手动入场 2-岗亭收费 3-免费开闸 4-异常离场 5-手动出场"`
+	LicenseNumber  string `json:"licenseNumber" dc:"车牌号"`
+	BeginEnterTime string `json:"beginEnterTime" dc:"最早入场时间，格式：yyyy-MM-dd HH:mm:ss"`
+	EndEnterTime   string `json:"endEnterTime" dc:"最晚入场时间，格式：yyyy-MM-dd HH:mm:ss"`
+	BeginOutTime   string `json:"beginOutTime" dc:"最早出场时间，格式：yyyy-MM-dd HH:mm:ss"`
+	EndOutTime     string `json:"endOutTime" dc:"最晚出场时间，格式：yyyy-MM-dd HH:mm:ss"`
+	MaxStayTime    int    `json:"maxStayTime" dc:"最长停留时间"`
+	MinStayTime    int    `json:"minStayTime" dc:"最短停留时间"`
+	Current        int    `json:"current" dc:"分页-当前页码（从1开始），必须(出场接口不必须)"`
+	Size           int    `json:"size" dc:"分页-每页记录数（默认为10），必须(出场接口不必须)"`
 }
 
 // GrantCouponParam 发放优惠券参数
@@ -87,14 +106,14 @@ type GrantCouponParam struct {
 	Sign          string `json:"sign" dc:"签名"`
 }
 
-// ParkingInoutResult 车辆进出场记录结果
-type ParkingInoutResult struct {
-	Records []*ParkingInoutModel `json:"records" dc:"进出场记录列表"`
+// ParkingInResult 车辆进场记录结果
+type ParkingInResult struct {
+	Records []*ParkingInModel `json:"records" dc:"进场记录列表"`
 	common.PageResult
 }
 
-// ParkingInoutModel 车辆进出场记录model
-type ParkingInoutModel struct {
+// ParkingInModel 车辆进场记录model
+type ParkingInModel struct {
 	ChargeType        int8   `json:"chargeType" dc:"计费类型 1-长租车 2-临停车"`
 	CouponAmount      int    `json:"couponAmount" dc:"优惠金额"`
 	EnterTime         string `json:"enterTime" dc:"进场时间"`
@@ -102,7 +121,7 @@ type ParkingInoutModel struct {
 	EntranceName      string `json:"entranceName" dc:"停车场入口名"`
 	Havechildren      string `json:"havechildren" dc:"是否有子车场的入场记录 0-没有 1-有"`
 	Hour              int    `json:"hour" dc:"已停时长 小时数"`
-	Id                string `json:"id" dc:"进出场id"`
+	Id                string `json:"id" dc:"进场id"`
 	InUrl             string `json:"inUrl" dc:"车牌入场url–大图"`
 	InUrlSmall        string `json:"inUrlSmall" dc:"车牌入场url–小图"`
 	IsHavechildren    bool   `json:"isHavechildren" dc:"是否有子车场的入场记录 false-没有 true-有"`
@@ -119,15 +138,36 @@ type ParkingInoutModel struct {
 	RealTotalAmount   int    `json:"realTotalAmount" dc:"实收总金额"`
 	ShouldTotalAmount int    `json:"shouldTotalAmount" dc:"应收总金额"`
 	Staytime          int    `json:"staytime" dc:"已停时长 总分钟数"`
-	// 出场信息字段
-	EnterId       string `json:"enterId" dc:"入场通道"`
-	ExitTime      string `json:"exitTime" dc:"出场时间"`
-	ImgUrl        string `json:"imgUrl" dc:"出场照片url"`
-	ImgUrl2       string `json:"imgUrl2" dc:"出场照片url"`
-	LicenseNumber string `json:"licenseNumber" dc:"车牌号1"`
-	ParkInId      string `json:"parkInId" dc:"入场id"`
-	ParkInImg     string `json:"parkInImg" dc:"入场照片"`
-	PayType       int    `json:"payType" dc:"支付方式 1：微信 2：支付宝 3：银联 4：月卡 5：现金"`
+}
+
+// ParkingOutResult 车辆出场记录结果
+type ParkingOutResult struct {
+	Records []*ParkingOutModel `json:"records" dc:"出场记录列表"`
+	common.PageResult
+}
+
+// ParkingOutModel 车辆出场记录model
+type ParkingOutModel struct {
+	ChargeType        int8   `json:"chargeType" dc:"计费类型 1-长租车 2-临停车"`
+	CouponAmount      int    `json:"couponAmount" dc:"优惠金额"`
+	EnterId           string `json:"enterId" dc:"入场通道"`
+	EnterTime         string `json:"enterTime" dc:"进场时间"`
+	EntranceId        string `json:"entranceId" dc:"停车场入口id"`
+	EntranceName      string `json:"entranceName" dc:"停车场入口名"`
+	ExitTime          string `json:"exitTime" dc:"出场时间"`
+	Id                string `json:"id" dc:"出场id"`
+	ImgUrl            string `json:"imgUrl" dc:"出场照片url"`
+	ImgUrl2           string `json:"imgUrl2" dc:"出场照片url"`
+	LicenseNumber     string `json:"licenseNumber" dc:"车牌号1"`
+	LicenseNumber2    string `json:"licenseNumber2" dc:"车牌号2"`
+	LicenseType       int8   `json:"licenseType" dc:"车牌类型 1-蓝牌 2-绿牌 3-黄牌 4-白牌 5-黑牌 6-其他"`
+	ParkId            string `json:"parkId" dc:"停车场id"`
+	ParkInId          string `json:"parkInId" dc:"入场id"`
+	ParkInImg         string `json:"parkInImg" dc:"入场照片"`
+	ParkName          string `json:"parkName" dc:"停车场名称"`
+	PayType           int    `json:"payType" dc:"支付方式 1：微信 2：支付宝 3：银联 4：月卡 5：现金"`
+	RealTotalAmount   int    `json:"realTotalAmount" dc:"实收总金额"`
+	ShouldTotalAmount int    `json:"shouldTotalAmount" dc:"应收总金额"`
 }
 
 // ParkingLaneModel 车道信息model
