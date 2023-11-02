@@ -118,7 +118,11 @@ func (s *ParkingRequest) ParkingOutRecords(param *entity.ParkingOutParam) (data 
 	signMap := make(map[string]interface{})
 	signMap["parkId"] = param.ParkId
 	signMap["chargeType"] = param.ChargeType
-	signMap["exceptionType"] = param.ExceptionType
+	if param.ExceptionType > 0 {
+		signMap["exceptionType"] = param.ExceptionType
+	} else {
+		delete(mp, "exceptionType")
+	}
 	if param.ModelName != "" {
 		signMap["modelName"] = param.ModelName
 	}
