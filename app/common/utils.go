@@ -4,6 +4,7 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
 	"github.com/gogf/gf/v2/crypto/gdes"
 	"github.com/gogf/gf/v2/encoding/gbase64"
@@ -49,4 +50,15 @@ func JoinStringsInASCII(data map[string]interface{}) string {
 
 func BuildUrl(baseUrl string, url string) string {
 	return fmt.Sprintf("%s%s", baseUrl, url)
+}
+
+// StructToMap 结构体转map
+func StructToMap(obj interface{}) map[string]interface{} {
+	var data map[string]interface{}
+	b, _ := json.Marshal(obj)
+	err := json.Unmarshal(b, &data)
+	if err != nil {
+		panic(err)
+	}
+	return data
 }
