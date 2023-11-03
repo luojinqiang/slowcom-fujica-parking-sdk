@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking/request"
 	cardEntity "github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking_card/entity"
 	cardRequest "github.com/luojinqiang/slowcom-fujica-parking-sdk/app/parking_card/request"
 	"github.com/luojinqiang/slowcom-fujica-parking-sdk/config"
@@ -15,9 +14,9 @@ func main() {
 		BaseUrl: "",
 		Token:   "",
 	}
-	req := request.ParkingRequest{FsClient: fsClient}
+	//req := request.ParkingRequest{FsClient: fsClient}
 	//req.GetParkingById(parkId)
-	//cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
+	cardReq := cardRequest.ParkingCardRequest{FsClient: fsClient}
 	// 1、获取月卡套餐
 	//cardReq.GetParkingCardRules(parkId)
 	// 2、办卡
@@ -101,7 +100,19 @@ func main() {
 	//	Entranceid: "275709504053317",
 	//})
 	// 16、压地感查询
-	req.GetCarNoByPressure(parkId, "275709540405317")
+	//req.GetCarNoByPressure(parkId, "275709540405317")
+	// 17、月卡车牌变更
+	cardReq.ParkingCardChange(&cardEntity.ParkingCardChangeParam{
+		ParkId: parkId,
+		CardPlateRecords: []*cardEntity.BrandModel{
+			{
+				CardId:   226100,
+				NewBrand: "粤B11111",
+				OldBrand: "粤B22222",
+			},
+		},
+		Remark: "慢云测试",
+	})
 }
 
 func cardRenewTest(req cardRequest.ParkingCardRequest) {

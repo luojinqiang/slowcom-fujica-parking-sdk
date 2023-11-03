@@ -130,3 +130,11 @@ func (s *ParkingCardRequest) ParkingCardCancel(parkId string, cardId int64, caus
 	response, err = s.FsClient.PostJson("card/cancelOneCard", mp)
 	return
 }
+
+// ParkingCardChange 月卡-月卡车牌变更
+func (s *ParkingCardRequest) ParkingCardChange(param *entity.ParkingCardChangeParam) (response *config.FsResponse, err error) {
+	mp := map[string]interface{}{"parkId": param.ParkId}
+	param.Sign = common.GetSign(mp)
+	response, err = s.FsClient.PostJson("card/modifyLicense", param)
+	return
+}

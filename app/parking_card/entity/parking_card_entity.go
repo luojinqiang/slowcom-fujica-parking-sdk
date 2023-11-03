@@ -115,3 +115,27 @@ type CarOwnerInfoModel struct {
 	HouseInfo   string                `json:"houseInfo"  dc:"住宅信息"`
 	ParkName    string                `json:"parkName"  dc:"车场名称"`
 }
+
+// ParkingCardChangeParam 月卡变更参数
+type ParkingCardChangeParam struct {
+	ParkId           string        `json:"parkId" dc:"车场id,必须"`
+	CardPlateRecords []*BrandModel `json:"cardPlateRecords" dc:"车牌信息，必须"`
+	Remark           string        `json:"remark" dc:"备注"`
+	Sign             string        `json:"sign" dc:"签名"`
+}
+
+type BrandModel struct {
+	CardId           int64  `json:"cardId" dc:"卡id"`
+	NewBrand         string `json:"newBrand" dc:"新车牌"`
+	NewLicenseType   int8   `json:"newLicenseType" dc:"新车牌类型"`
+	NewPlateColor    string `json:"newPlateColor" dc:"新车牌颜色"`
+	NewPlateNum      string `json:"newPlateNum" dc:"新车牌"`
+	NewPlateType     string `json:"newPlateType" dc:"新车牌类型"`
+	NewlicenseNumber string `json:"newlicenseNumber" dc:"新车牌"`
+	OldBrand         string `json:"oldBrand" dc:"旧车牌"`
+	OldLicenseType   int8   `json:"oldLicenseType" dc:"旧车牌类型"`
+	OldPlateColor    string `json:"oldPlateColor" dc:"旧车牌颜色"`
+	OldPlateNum      string `json:"oldPlateNum" dc:"旧车牌"`
+	OldPlateType     string `json:"oldPlateType" dc:"旧车牌类型"`
+	OldlicenseNumber string `json:"oldlicenseNumber" dc:"旧车牌"`
+}
