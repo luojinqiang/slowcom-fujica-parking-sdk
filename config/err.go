@@ -1,14 +1,12 @@
 package config
 
-import "strconv"
-
 type Error struct {
 	Code    int
 	Message string
 }
 
 func (e Error) Error() string {
-	return strconv.Itoa(e.Code) + "-" + e.Message
+	return e.Message
 }
 
 var ErrArr = []*Error{
